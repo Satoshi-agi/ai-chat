@@ -68,24 +68,25 @@ export default function MessageList({ messages }: MessageListProps) {
               </span>
             </div>
             {msg.role === 'assistant' ? (
-              <ReactMarkdown
-                remarkPlugins={[remarkGfm]}
-                rehypePlugins={[rehypeSanitize, rehypeRaw]}
-                className="prose prose-sm max-w-none dark:prose-invert
+              <div className="prose prose-sm max-w-none dark:prose-invert
                   prose-p:my-2 prose-p:leading-relaxed
                   prose-pre:bg-gray-800 prose-pre:text-gray-100
                   prose-code:text-sm prose-code:bg-gray-100 dark:prose-code:bg-gray-800
                   prose-code:px-1 prose-code:py-0.5 prose-code:rounded
                   prose-a:text-blue-600 dark:prose-a:text-blue-400
-                  prose-strong:text-gray-900 dark:prose-strong:text-gray-100"
-                components={{
-                  a: ({ node, ...props }) => (
-                    <a {...props} target="_blank" rel="noopener noreferrer" />
-                  ),
-                }}
-              >
-                {msg.content}
-              </ReactMarkdown>
+                  prose-strong:text-gray-900 dark:prose-strong:text-gray-100">
+                <ReactMarkdown
+                  remarkPlugins={[remarkGfm]}
+                  rehypePlugins={[rehypeSanitize, rehypeRaw]}
+                  components={{
+                    a: ({ node, ...props }) => (
+                      <a {...props} target="_blank" rel="noopener noreferrer" />
+                    ),
+                  }}
+                >
+                  {msg.content}
+                </ReactMarkdown>
+              </div>
             ) : (
               <div className="whitespace-pre-wrap break-words">
                 {msg.content}
