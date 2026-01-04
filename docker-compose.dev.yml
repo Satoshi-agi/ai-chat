@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  # MongoDB Database (Development)
+  mongodb:
+    image: mongo:7.0-jammy
+    container_name: ai-chat-mongodb-dev
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_DATABASE=ai-chat
+    volumes:
+      - mongodb-dev-data:/data/db
+    networks:
+      - ai-chat-dev-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+networks:
+  ai-chat-dev-network:
+    driver: bridge
+
+volumes:
+  mongodb-dev-data:
+    driver: local
